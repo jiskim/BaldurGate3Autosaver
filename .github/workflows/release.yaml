@@ -23,6 +23,8 @@ jobs:
       run: (Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | py -
     - name: Install pyinstaller
       run: pip install pyinstaller
+    - name: Get AppData Directory
+      run: echo ("APPDATA_DIR=" + $env:APPDATA) >> $env:GITHUB_ENV
     #----------------------------------------------
     #       load cached venv if cache exists
     #----------------------------------------------
@@ -42,7 +44,7 @@ jobs:
     # install your root project, if required
     #----------------------------------------------
     - name: Install project
-      run: poetry install --no-interaction
+      run: C:\Users\runneradmin\AppData\Roaming\Python\Scripts\poetry install --no-interaction
     - name: run build
       run: C:\Users\runneradmin\AppData\Roaming\Python\Scripts\poetry run pyinstaller main.py --collect-submodules application --onefile --name BG3Autosaver
     - name: Create Release
