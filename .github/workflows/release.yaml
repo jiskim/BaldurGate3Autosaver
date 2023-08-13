@@ -14,13 +14,13 @@ jobs:
       #----------------------------------------------
       #  -----  install & configure poetry  -----
       #----------------------------------------------
+#    - name: Install Poetry
+#      uses: snok/install-poetry@v1
+#      with:
+#        virtualenvs-create: true
+#        virtualenvs-in-project: true
     - name: Install Poetry
-      uses: snok/install-poetry@v1
-      with:
-        virtualenvs-create: true
-        virtualenvs-in-project: true
-    - name: set env path
-      run: set PATH=%PATH%;%USERPROFILE%\AppData\Roaming\pypoetry\venv\Scripts
+      run: curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python -
     - name: Install pyinstaller
       run: pip install pyinstaller
     #----------------------------------------------
