@@ -19,7 +19,8 @@ jobs:
       with:
         virtualenvs-create: true
         virtualenvs-in-project: true
-
+    - name: set env path
+      run: set PATH=%PATH%;%USERPROFILE%\AppData\Roaming\pypoetry\venv\Scripts
     - name: Install pyinstaller
       run: pip install pyinstaller
     #----------------------------------------------
