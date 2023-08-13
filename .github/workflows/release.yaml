@@ -1,4 +1,4 @@
-sename: Create New Release
+name: Create New Release
 
 on:
   push:
@@ -19,11 +19,6 @@ jobs:
       #----------------------------------------------
       #  -----  install & configure poetry  -----
       #----------------------------------------------
-#    - name: Install Poetry
-#      uses: snok/install-poetry@v1
-#      with:
-#        virtualenvs-create: true
-#        virtualenvs-in-project: true
     - name: Install Poetry
       run: (Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | py -
     #----------------------------------------------
@@ -55,7 +50,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
       with:
         tag_name: release-${{ steps.date.outputs.date }}-${{ github.sha }}
-        release_name: Release ${{ github.ref }}
+        release_name: Release ${{ steps.date.outputs.date }}-${{ github.sha }}
         body: |
           Automatic release creation.
         draft: false
