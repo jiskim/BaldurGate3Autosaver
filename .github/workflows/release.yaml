@@ -1,0 +1,47 @@
+name: Upload Website
+
+on:
+  push:
+    branches:
+      - 'release'
+
+jobs:
+  deploy:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout code
+      uses: nschloe/action-cached-lfs-checkout@v1.1.2
+      #----------------------------------------------
+      #  -----  install & configure poetry  -----
+      #----------------------------------------------
+    - name: Install Poetry
+      uses: snok/install-poetry@v1
+      with:
+        virtualenvs-create: true
+        virtualenvs-in-project: true
+
+    #----------------------------------------------
+    #       load cached venv if cache exists
+    #----------------------------------------------
+    - name: Load cached venv
+      id: cached-poetry-dependencies
+      uses: actions/cache@v3
+      with:
+        path: .venv
+        key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+    #----------------------------------------------
+    # install dependencies if cache does not exist
+    #----------------------------------------------
+    - name: Install dependencies
+      if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+      run: poetry install --no-interaction --no-root
+    #----------------------------------------------
+    # install your root project, if required
+    #----------------------------------------------
+    - name: Install project
+      run: poetry install --no-interaction
+    #----------------------------------------------
+    #              run header changer
+    #----------------------------------------------
+    - name: run header changer
+      run: poetry run pyinstaller main.py --collect-submodules application --onefile --name BG3Autosaver
