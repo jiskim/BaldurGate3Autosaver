@@ -1,0 +1,1 @@
+# BaldurGate3Autosaver
