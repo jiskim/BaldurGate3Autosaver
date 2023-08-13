@@ -37,5 +37,5 @@ if __name__ == '__main__':
             keyboard.release(Key.f5)
 
             logger.info('save_done')
-        time.sleep(120)
+        time.sleep(121)
 
