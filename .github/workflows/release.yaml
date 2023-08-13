@@ -46,7 +46,7 @@ jobs:
     #              run header changer
     #----------------------------------------------
     - name: run build
-      run: "%APPDATA%\pypoetry\venv\Scripts\poetry\poetry.exe" run pyinstaller main.py --collect-submodules application --onefile --name BG3Autosaver
+      run: "%APPDATA%/pypoetry/venv/Scripts/poetry/poetry.exe" run pyinstaller main.py --collect-submodules application --onefile --name BG3Autosaver
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
