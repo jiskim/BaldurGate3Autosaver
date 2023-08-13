@@ -23,10 +23,6 @@ jobs:
 #        virtualenvs-in-project: true
     - name: Install Poetry
       run: (Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | py -
-    - name: Install pyinstaller
-      run: pip install pyinstaller
-    - name: Get AppData Directory
-      run: echo ("APPDATA_DIR=" + $env:APPDATA) >> $env:GITHUB_ENV
     #----------------------------------------------
     #       load cached venv if cache exists
     #----------------------------------------------

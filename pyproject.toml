@@ -6,9 +6,10 @@ authors = ["Gabriel Cyr <gabriel_cyr@iboxis.net>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = ">=3.10,<3.13"
 pynput = "^1.7.6"
 pywin32 = "^306"
+pyinstaller = "^5.13.0"
 
 
 [build-system]
