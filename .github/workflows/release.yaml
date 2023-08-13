@@ -1,4 +1,4 @@
-name: Upload Website
+name: Create New Release
 
 on:
   push:
@@ -22,7 +22,7 @@ jobs:
     - name: Install Poetry
       run: (Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | py -
     - name: Install pyinstaller
-      run: pip install pyinstaller
+      run: py -m pip install pyinstaller
     #----------------------------------------------
     #       load cached venv if cache exists
     #----------------------------------------------
@@ -37,14 +37,14 @@ jobs:
     #----------------------------------------------
     - name: Install dependencies
       if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-      run: poetry install --no-interaction --no-root
+      run: py -m poetry install --no-interaction --no-root
     #----------------------------------------------
     # install your root project, if required
     #----------------------------------------------
     - name: Install project
       run: poetry install --no-interaction
     - name: run build
-      run: poetry run pyinstaller main.py --collect-submodules application --onefile --name BG3Autosaver
+      run: py -m poetry run pyinstaller main.py --collect-submodules application --onefile --name BG3Autosaver
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
