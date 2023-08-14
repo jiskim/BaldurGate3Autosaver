@@ -45,23 +45,23 @@ jobs:
       run: C:\Users\runneradmin\AppData\Roaming\Python\Scripts\poetry run pyinstaller main.py --collect-submodules application --onefile --name BG3Autosaver
     - name: Create Release
       id: create_release
-      uses: actions/create-release@v1
+      uses: softprops/action-gh-release@latest
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
       with:
         tag_name: release-${{ steps.date.outputs.date }}-${{ github.sha }}
-        release_name: Release ${{ steps.date.outputs.date }}-${{ github.sha }}
-        body: |
-          Automatic release creation.
-        draft: false
+        name: Release ${{ steps.date.outputs.date }}-${{ github.sha }}
+        generate_release_notes: true
         prerelease: false
-    - name: Upload Release Asset
-      id: upload-release-asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-        asset_path: ./dist/BG3Autosaver.exe
-        asset_name: BG3Autosaver.exe
-        asset_content_type: application/exe
+        files: ./dist/BG3Autosaver.exe
+        fail_on_unmatched_files: true
+    # - name: Upload Release Asset
+    #   id: upload-release-asset
+    #   uses: softprops/action-gh-release@latest
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #   with:
+    #     upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+    #     asset_path: ./dist/BG3Autosaver.exe
+    #     asset_name: BG3Autosaver.exe
+    #     asset_content_type: application/exe
