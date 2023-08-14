@@ -59,7 +59,7 @@ jobs:
       with:
         # You can change the name of the tag or branch with this input.
         # Default: 'latest'
-        ref: release-${{ steps.date.outputs.date }}-${{ github.sha }}
+        ref: latest
         # Force-update a branch instead of using a tag.
         # Default: false
         force-branch: false
