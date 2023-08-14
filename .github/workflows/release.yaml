@@ -45,15 +45,24 @@ jobs:
       run: C:\Users\runneradmin\AppData\Roaming\Python\Scripts\poetry run pyinstaller main.py --collect-submodules application --onefile --name BG3Autosaver
     - name: Create Release
       id: create_release
-      uses: softprops/action-gh-release@latest
+      uses: softprops/action-gh-release@v0.1.15
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
       with:
-        tag_name: release-${{ steps.date.outputs.date }}-${{ github.sha }} 
+        tag_name: release-${{ steps.date.outputs.date }}-${{ github.sha }}  
         generate_release_notes: true
         prerelease: false
         files: ./dist/BG3Autosaver.exe
         fail_on_unmatched_files: true
+    - name: Run latest-tag
+      uses: EndBug/latest-tag@latest
+      with:
+        # You can change the name of the tag or branch with this input.
+        # Default: 'latest'
+        ref: release-${{ steps.date.outputs.date }}-${{ github.sha }}
+        # Force-update a branch instead of using a tag.
+        # Default: false
+        force-branch: false
     # - name: Upload Release Asset
     #   id: upload-release-asset
     #   uses: softprops/action-gh-release@latest
